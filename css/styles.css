@@ -455,6 +455,162 @@ main { padding: 1rem 1.5rem 3rem; max-width: 1200px; margin: 0 auto; }
   margin: 1rem 0;
 }
 
+/* ==================== MANAGE DATA BUTTON ==================== */
+.manage-btn {
+  border-color: var(--gold) !important;
+  color: var(--gold) !important;
+}
+
+.manage-btn:hover { background: rgba(253,203,110,0.15) !important; }
+
+/* ==================== DATA MANAGER ==================== */
+.data-manager {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: 1rem;
+  border: 1px solid var(--card);
+  margin-top: 0.5rem;
+}
+
+.dm-header h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--gold);
+}
+
+/* Drop zone */
+.drop-zone {
+  border: 2px dashed var(--card);
+  border-radius: 0.8rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 1rem;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+  border-color: var(--accent);
+  background: rgba(233,69,96,0.05);
+}
+
+.drop-zone-content p {
+  color: var(--text-muted);
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.drop-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.drop-hint {
+  font-size: 0.8rem !important;
+  opacity: 0.6;
+}
+
+/* Format info */
+.dm-format-info {
+  margin-bottom: 1rem;
+}
+
+.dm-format-info summary {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 0.3rem 0;
+}
+
+.dm-format-info summary:hover { color: var(--text); }
+
+.dm-format-info pre {
+  background: var(--bg);
+  border: 1px solid var(--card);
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  margin-top: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.dm-format-info code { color: var(--gold); }
+
+.format-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+/* Group list */
+.dm-groups {
+  margin-bottom: 1rem;
+}
+
+.dm-groups h3 {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.group-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg);
+  border: 1px solid var(--card);
+  border-radius: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.group-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.group-item-name {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.group-item-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.group-remove-btn {
+  background: transparent;
+  border: 1px solid var(--fail);
+  color: var(--fail);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.group-remove-btn:hover {
+  background: var(--fail);
+  color: #fff;
+}
+
+/* Data manager actions */
+.dm-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
 /* ==================== UTILITY ==================== */
 .hidden { display: none !important; }
 
@@ -488,4 +644,5 @@ main { padding: 1rem 1.5rem 3rem; max-width: 1200px; margin: 0 auto; }
   .match-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
   .match-card.kanji-card { font-size: 1.5rem; }
   main { padding: 0.8rem; }
+  .data-manager { margin: 0.5rem 0.5rem 0; padding: 1rem; }
 }

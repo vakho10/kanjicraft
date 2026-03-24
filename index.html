@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Interactive kanji learning card game with flashcards, matching, and quiz modes. Japanese-Georgian kanji study tool.">
+<meta name="description" content="Interactive kanji learning card game with flashcards, matching, and quiz modes. Import your own kanji data via drag and drop.">
 <title>KanjiCraft - Kanji Card Game</title>
 <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -31,14 +31,48 @@
   <button class="nav-btn active" data-mode="flashcard">Flashcards</button>
   <button class="nav-btn" data-mode="match">Matching</button>
   <button class="nav-btn" data-mode="quiz">Quiz</button>
+  <button class="nav-btn manage-btn" id="manage-data-btn">Manage Data</button>
 </nav>
 
-<div class="filter-bar">
-  <button class="filter-btn active" data-group="all">All</button>
-  <button class="filter-btn" data-group="漢字 1381-1390">1381-1390</button>
-  <button class="filter-btn" data-group="漢字 1391-1400">1391-1400</button>
-  <button class="filter-btn" data-group="漢字 1401-1410">1401-1410</button>
-  <button class="filter-btn" data-group="漢字 1531-1540">1531-1540</button>
+<div class="filter-bar" id="filter-bar"></div>
+
+<!-- DATA MANAGER PANEL -->
+<div id="data-manager" class="data-manager hidden">
+  <div class="dm-header">
+    <h2>Manage Kanji Data</h2>
+  </div>
+
+  <div class="drop-zone" id="drop-zone">
+    <div class="drop-zone-content">
+      <div class="drop-icon">&#128195;</div>
+      <p>Drag & drop a <strong>.json</strong> file here</p>
+      <p class="drop-hint">or click to browse</p>
+    </div>
+    <input type="file" id="file-input" accept=".json" hidden>
+  </div>
+
+  <div class="dm-format-info">
+    <details>
+      <summary>JSON format reference</summary>
+      <pre><code>{
+  "group": "JLPT N1 - Set 1",
+  "cards": [
+    { "kanji": "郷", "reading": "きょう", "meaning": "village" },
+    { "kanji": "故郷", "reading": "こきょう", "meaning": "hometown" }
+  ]
+}</code></pre>
+      <p class="format-note">Also supports flat arrays with a <code>"group"</code> field per card, and shorthand keys <code>k</code>/<code>r</code>/<code>m</code>.</p>
+    </details>
+  </div>
+
+  <div class="dm-groups">
+    <h3>Loaded Groups</h3>
+    <div id="group-list"></div>
+  </div>
+
+  <div class="dm-actions">
+    <button class="match-btn" id="reset-defaults-btn">Reset to Defaults</button>
+  </div>
 </div>
 
 <main>

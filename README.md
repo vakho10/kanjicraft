@@ -1,30 +1,45 @@
 # KanjiCraft
 
-Interactive kanji learning card game with Japanese-Georgian translations. Built with plain HTML5, CSS3, and ES modules — no build step, no dependencies.
+Interactive kanji learning card game. Import your own kanji data via drag & drop, or use the built-in example set. Built with plain HTML5, CSS3, and ES modules — no build step, no dependencies.
 
 ## Features
 
-- **Flashcards** — Flip cards to reveal readings and Georgian meanings. Mark cards as "known" to focus on what you still need to learn. Keyboard navigation (arrow keys, space/enter).
+- **Drag & drop data import** — Drop a `.json` file to add your own kanji groups. Remove groups you don't need.
+- **Flashcards** — Flip cards to reveal readings and meanings. Mark cards as "known" to focus on what you still need to learn. Keyboard navigation (arrow keys, space/enter).
 - **Matching** — Pair kanji cards with their reading/meaning. Choose 6, 8, or 10 pairs per round.
 - **Quiz** — 4-choice multiple choice with 4 directions:
   - Kanji → Meaning
   - Meaning → Kanji
   - Kanji → Reading
   - Reading → Kanji
-- **Group filtering** — Study specific kanji ranges or all at once.
+- **Dynamic group filtering** — Filter buttons update automatically as you add/remove groups.
 - **Score & streak tracking** — Gamified learning with points and streaks.
-- **Progress persistence** — Known cards saved to localStorage.
+- **Data persistence** — All imported data and progress saved to localStorage.
 
-## Kanji Groups
+## Importing Your Own Data
 
-| Group | Count |
-|-------|-------|
-| 漢字 1381-1390 | 24 words |
-| 漢字 1391-1400 | 24 words |
-| 漢字 1401-1410 | 15 words |
-| 漢字 1531-1540 | 27 words |
+Click **Manage Data** in the nav bar, then drag & drop a `.json` file. Two formats are supported:
 
-**Total: 90 kanji words**
+**Format 1 — Grouped:**
+```json
+{
+  "group": "JLPT N1 - Set 1",
+  "cards": [
+    { "kanji": "郷", "reading": "きょう", "meaning": "village" },
+    { "kanji": "故郷", "reading": "こきょう", "meaning": "hometown" }
+  ]
+}
+```
+
+**Format 2 — Flat array:**
+```json
+[
+  { "kanji": "郷", "reading": "きょう", "meaning": "village", "group": "My Group" },
+  { "kanji": "故郷", "reading": "こきょう", "meaning": "hometown", "group": "My Group" }
+]
+```
+
+Shorthand keys `k`/`r`/`m`/`g` are also accepted.
 
 ## Getting Started
 
@@ -49,30 +64,21 @@ This project is designed to deploy directly to **GitHub Pages**:
 
 ```
 kanjicraft/
-├── index.html          # Main HTML
+├── index.html            # Main HTML
 ├── css/
-│   └── styles.css      # All styles
+│   └── styles.css        # All styles
 ├── js/
-│   ├── app.js          # Entry point, mode switching, filters
-│   ├── data.js         # Kanji data (easy to extend)
-│   ├── utils.js        # Shared state, shuffle, toast
-│   ├── flashcard.js    # Flashcard mode logic
-│   ├── matching.js     # Matching game logic
-│   └── quiz.js         # Quiz mode logic
+│   ├── app.js            # Entry point, mode switching, filters
+│   ├── data.js           # Default kanji data (example set)
+│   ├── datamanager.js    # Import/export, drag & drop, group management
+│   ├── utils.js          # Shared state, shuffle, toast
+│   ├── flashcard.js      # Flashcard mode logic
+│   ├── matching.js       # Matching game logic
+│   └── quiz.js           # Quiz mode logic
 ├── data/
-│   └── kanji_words.md  # Kanji reference in markdown
+│   └── kanji_words.md    # Kanji reference in markdown
 └── README.md
 ```
-
-## Adding New Kanji
-
-Edit `js/data.js` and add entries to the `ALL_CARDS` array:
-
-```js
-{k: "漢字", r: "かんじ", m: "იეროგლიფი", g: "漢字 XXXX-XXXX"},
-```
-
-Then add a filter button in `index.html` if it's a new group.
 
 ## License
 
