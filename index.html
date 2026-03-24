@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Interactive kanji learning card game with flashcards, matching, and quiz modes. Japanese-Georgian kanji study tool.">
+<title>KanjiCraft - Kanji Card Game</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+  <h1>KanjiCraft</h1>
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-label">Score:</span>
+      <span class="stat-value" id="score">0</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Streak:</span>
+      <span class="stat-value" id="streak">0</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Cards:</span>
+      <span class="stat-value" id="card-count">90</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <button class="nav-btn active" data-mode="flashcard">Flashcards</button>
+  <button class="nav-btn" data-mode="match">Matching</button>
+  <button class="nav-btn" data-mode="quiz">Quiz</button>
+</nav>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-group="all">All</button>
+  <button class="filter-btn" data-group="漢字 1381-1390">1381-1390</button>
+  <button class="filter-btn" data-group="漢字 1391-1400">1391-1400</button>
+  <button class="filter-btn" data-group="漢字 1401-1410">1401-1410</button>
+  <button class="filter-btn" data-group="漢字 1531-1540">1531-1540</button>
+</div>
+
+<main>
+  <!-- FLASHCARD MODE -->
+  <section id="flashcard-mode">
+    <div class="flashcard-container">
+      <div class="flashcard-wrapper" id="flashcard-wrapper">
+        <div class="flashcard" id="flashcard">
+          <div class="flashcard-face flashcard-front">
+            <span class="group-tag" id="fc-group"></span>
+            <div class="kanji-display" id="fc-kanji"></div>
+            <div class="hint-text">Click to reveal</div>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <div class="reading" id="fc-reading"></div>
+            <div class="meaning" id="fc-meaning"></div>
+            <div class="kanji-small" id="fc-kanji-back"></div>
+          </div>
+        </div>
+      </div>
+      <div class="flashcard-nav">
+        <button class="fc-btn" id="fc-prev">&#8592;</button>
+        <span class="fc-counter" id="fc-counter">1 / 90</span>
+        <button class="fc-btn" id="fc-next">&#8594;</button>
+      </div>
+      <div style="display:flex;gap:0.5rem">
+        <button class="fc-shuffle" id="fc-shuffle">Shuffle</button>
+        <button class="fc-shuffle" id="fc-know">I know this</button>
+        <button class="fc-shuffle" id="fc-reset-known">Reset known</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATCHING MODE -->
+  <section id="match-mode" class="hidden">
+    <div class="match-container">
+      <div class="match-info">
+        <span>Pairs found: <strong id="match-found">0</strong> / <strong id="match-total">0</strong></span>
+        <span>Attempts: <strong id="match-attempts">0</strong></span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="match-progress" style="width:0%"></div></div>
+      <div class="match-grid" id="match-grid"></div>
+      <div class="match-actions">
+        <button class="match-btn" id="match-size-6">6 pairs</button>
+        <button class="match-btn" id="match-size-8">8 pairs</button>
+        <button class="match-btn" id="match-size-10">10 pairs</button>
+        <button class="match-btn primary" id="match-new">New Game</button>
+      </div>
+      <div class="completion" id="match-complete">
+        <h2>All Matched!</h2>
+        <p>You found all pairs</p>
+        <div class="score-display" id="match-score-display"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ MODE -->
+  <section id="quiz-mode" class="hidden">
+    <div class="quiz-container">
+      <div class="quiz-direction">
+        <button class="quiz-dir-btn active" data-dir="kanji-to-meaning">Kanji &#8594; Meaning</button>
+        <button class="quiz-dir-btn" data-dir="meaning-to-kanji">Meaning &#8594; Kanji</button>
+        <button class="quiz-dir-btn" data-dir="kanji-to-reading">Kanji &#8594; Reading</button>
+        <button class="quiz-dir-btn" data-dir="reading-to-kanji">Reading &#8594; Kanji</button>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="quiz-progress" style="width:0%"></div></div>
+      <div class="quiz-prompt" id="quiz-prompt"></div>
+      <div class="quiz-options" id="quiz-options"></div>
+      <button class="quiz-next" id="quiz-next">Next</button>
+      <div class="completion" id="quiz-complete">
+        <h2>Quiz Complete!</h2>
+        <p id="quiz-result-text"></p>
+        <div class="score-display" id="quiz-score-display"></div>
+        <button class="match-btn primary" id="quiz-restart" style="margin-top:1rem">Play Again</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
