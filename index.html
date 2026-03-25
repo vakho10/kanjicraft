@@ -5,46 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Interactive kanji learning card game with flashcards, matching, and quiz modes. Import your own kanji data via drag and drop.">
 <title>KanjiCraft - Kanji Card Game</title>
+<link rel="stylesheet" href="css/styles.css">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
   theme: {
     extend: {
       colors: {
-        bg: '#1a1a2e',
-        surface: '#16213e',
-        card: '#0f3460',
-        accent: '#e94560',
-        accent2: '#533483',
-        'text-main': '#eeeeee',
-        'text-muted': '#aaaaaa',
-        success: '#00b894',
-        fail: '#e17055',
-        gold: '#fdcb6e',
+        bg: 'var(--color-bg)',
+        surface: 'var(--color-surface)',
+        card: 'var(--color-card)',
+        'card-end': 'var(--color-card-end)',
+        'back-start': 'var(--color-back-start)',
+        accent: 'var(--color-accent)',
+        'accent-hover': 'var(--color-accent-hover)',
+        accent2: 'var(--color-accent2)',
+        'text-main': 'var(--color-text-main)',
+        'text-muted': 'var(--color-text-muted)',
+        success: 'var(--color-success)',
+        fail: 'var(--color-fail)',
+        gold: 'var(--color-gold)',
       }
     }
   }
 }
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/styles.css">
+<!-- Prevent flash of wrong theme -->
+<script>
+(function() {
+  var choice = localStorage.getItem('kanjicraft-theme') || 'system';
+  var resolved = choice;
+  if (choice === 'system') {
+    resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.dataset.theme = resolved;
+})();
+</script>
 </head>
-<body class="font-['Segoe_UI',system-ui,-apple-system,sans-serif] bg-bg text-text-main min-h-screen overflow-x-hidden">
+<body class="font-['Segoe_UI',system-ui,-apple-system,sans-serif] bg-bg text-text-main min-h-screen overflow-x-hidden transition-colors duration-300">
 
-<header class="bg-gradient-to-br from-surface to-accent2 px-8 py-5 flex justify-between items-center flex-wrap gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+<header class="bg-gradient-to-br from-surface to-accent2 px-8 py-5 flex justify-between items-center flex-wrap gap-4 shadow-[0_4px_20px_var(--color-shadow)]">
   <h1 class="text-2xl font-bold bg-gradient-to-r from-gold to-accent bg-clip-text text-transparent">漢 KanjiCraft</h1>
-  <div class="stats flex gap-6 text-sm">
-    <div class="flex items-center gap-1.5">
-      <span class="text-text-muted">Score:</span>
-      <span class="font-bold text-gold text-lg" id="score">0</span>
+  <div class="flex items-center gap-6">
+    <div class="stats flex gap-6 text-sm">
+      <div class="flex items-center gap-1.5">
+        <span class="text-text-muted">Score:</span>
+        <span class="font-bold text-gold text-lg" id="score">0</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <span class="text-text-muted">Streak:</span>
+        <span class="font-bold text-gold text-lg" id="streak">0</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <span class="text-text-muted">Cards:</span>
+        <span class="font-bold text-gold text-lg" id="card-count">90</span>
+      </div>
     </div>
-    <div class="flex items-center gap-1.5">
-      <span class="text-text-muted">Streak:</span>
-      <span class="font-bold text-gold text-lg" id="streak">0</span>
-    </div>
-    <div class="flex items-center gap-1.5">
-      <span class="text-text-muted">Cards:</span>
-      <span class="font-bold text-gold text-lg" id="card-count">90</span>
+    <div class="theme-toggle" id="theme-toggle">
+      <button class="theme-btn" data-theme-choice="light" title="Light mode">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+      <button class="theme-btn" data-theme-choice="dark" title="Dark mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <button class="theme-btn" data-theme-choice="system" title="System preference">
+        <i class="fa-solid fa-display"></i>
+      </button>
     </div>
   </div>
 </header>
@@ -59,7 +86,7 @@ tailwind.config = {
   <button class="nav-btn px-5 py-2 border-2 border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-300 hover:bg-accent2 hover:-translate-y-0.5" data-mode="quiz">
     <i class="fa-solid fa-circle-question mr-1"></i> Quiz
   </button>
-  <button class="nav-btn manage-btn px-5 py-2 border-2 !border-gold bg-transparent !text-gold rounded-full cursor-pointer text-sm transition-all duration-300 hover:!bg-gold/15 hover:-translate-y-0.5" id="manage-data-btn">
+  <button class="nav-btn manage-btn px-5 py-2 border-2 !border-gold bg-transparent !text-gold rounded-full cursor-pointer text-sm transition-all duration-300 hover:!bg-[var(--color-gold-hover-bg)] hover:-translate-y-0.5" id="manage-data-btn">
     <i class="fa-solid fa-database mr-1"></i> Manage Data
   </button>
 </nav>
@@ -72,7 +99,7 @@ tailwind.config = {
     <h2 class="text-lg font-semibold text-gold mb-4"><i class="fa-solid fa-folder-open mr-2"></i>Manage Kanji Data</h2>
   </div>
 
-  <div class="drop-zone border-2 border-dashed border-card rounded-xl p-8 text-center cursor-pointer transition-all duration-300 mb-4 hover:border-accent hover:bg-accent/5" id="drop-zone">
+  <div class="drop-zone border-2 border-dashed border-card rounded-xl p-8 text-center cursor-pointer transition-all duration-300 mb-4 hover:border-accent hover:bg-[var(--color-accent-bg)]" id="drop-zone">
     <div class="drop-zone-content">
       <div class="text-4xl mb-2"><i class="fa-solid fa-file-import text-text-muted"></i></div>
       <p class="text-text-muted text-sm my-1">Drag & drop a <strong>.json</strong> file here</p>
@@ -113,15 +140,15 @@ tailwind.config = {
     <div class="flashcard-container flex flex-col items-center gap-6 pt-4">
       <div class="flashcard-wrapper w-[340px] h-[420px] cursor-pointer" id="flashcard-wrapper">
         <div class="flashcard" id="flashcard">
-          <div class="flashcard-face flashcard-front rounded-2xl flex flex-col items-center justify-center p-8 shadow-[0_10px_40px_rgba(0,0,0,0.4)] bg-gradient-to-br from-card to-[#1a4a8a] border-2 border-white/10">
-            <span class="group-tag text-xs text-text-muted bg-white/10 px-3 py-0.5 rounded-full absolute top-4 right-4" id="fc-group"></span>
+          <div class="flashcard-face flashcard-front rounded-2xl flex flex-col items-center justify-center p-8 shadow-[0_10px_40px_var(--color-shadow-heavy)]">
+            <span class="group-tag text-xs bg-white/15 text-white/70 px-3 py-0.5 rounded-full absolute top-4 right-4" id="fc-group"></span>
             <div class="kanji-display text-[5rem] font-light mb-2" id="fc-kanji"></div>
-            <div class="text-text-muted text-sm mt-4"><i class="fa-solid fa-hand-pointer mr-1"></i>Click to reveal</div>
+            <div class="text-white/60 text-sm mt-4"><i class="fa-solid fa-hand-pointer mr-1"></i>Click to reveal</div>
           </div>
-          <div class="flashcard-face flashcard-back rounded-2xl flex flex-col items-center justify-center p-8 shadow-[0_10px_40px_rgba(0,0,0,0.4)] bg-gradient-to-br from-[#1e3a5f] to-accent2 border-2 border-accent/30 gap-4">
+          <div class="flashcard-face flashcard-back rounded-2xl flex flex-col items-center justify-center p-8 shadow-[0_10px_40px_var(--color-shadow-heavy)] gap-4">
             <div class="reading text-3xl text-gold" id="fc-reading"></div>
-            <div class="meaning text-lg text-center leading-relaxed text-text-main" id="fc-meaning"></div>
-            <div class="kanji-small text-4xl opacity-50 absolute bottom-4 right-6" id="fc-kanji-back"></div>
+            <div class="meaning text-lg text-center leading-relaxed text-white" id="fc-meaning"></div>
+            <div class="kanji-small text-4xl opacity-40 absolute bottom-4 right-6 text-white" id="fc-kanji-back"></div>
           </div>
         </div>
       </div>
@@ -161,7 +188,7 @@ tailwind.config = {
         <button class="match-btn px-5 py-2 border border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent2" id="match-size-6">6 pairs</button>
         <button class="match-btn px-5 py-2 border border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent2" id="match-size-8">8 pairs</button>
         <button class="match-btn px-5 py-2 border border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent2" id="match-size-10">10 pairs</button>
-        <button class="match-btn px-5 py-2 border border-accent bg-accent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-[#c03050]" id="match-new">
+        <button class="match-btn px-5 py-2 border border-accent bg-accent text-white rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent-hover" id="match-new">
           <i class="fa-solid fa-plus mr-1"></i> New Game
         </button>
       </div>
@@ -183,16 +210,16 @@ tailwind.config = {
         <button class="quiz-dir-btn px-4 py-1.5 border border-card bg-surface text-text-muted rounded-full cursor-pointer text-xs transition-all duration-200" data-dir="reading-to-kanji">Reading <i class="fa-solid fa-arrow-right mx-0.5"></i> Kanji</button>
       </div>
       <div class="progress-bar w-full max-w-xl h-1.5 bg-surface rounded-sm overflow-hidden"><div class="progress-fill h-full bg-gradient-to-r from-accent to-gold rounded-sm transition-all duration-400" id="quiz-progress" style="width:0"></div></div>
-      <div class="quiz-prompt text-[5rem] p-8 bg-gradient-to-br from-card to-[#1a4a8a] rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.4)] min-w-[250px] text-center" id="quiz-prompt"></div>
+      <div class="quiz-prompt" id="quiz-prompt"></div>
       <div class="quiz-options grid grid-cols-2 gap-3 w-full max-w-xl" id="quiz-options"></div>
-      <button class="quiz-next hidden px-8 py-3 bg-accent border-none text-white rounded-full cursor-pointer text-base transition-all duration-200 hover:bg-[#c03050] hover:-translate-y-0.5" id="quiz-next">
+      <button class="quiz-next hidden px-8 py-3 bg-accent border-none text-white rounded-full cursor-pointer text-base transition-all duration-200 hover:bg-accent-hover hover:-translate-y-0.5" id="quiz-next">
         <i class="fa-solid fa-forward mr-1"></i> Next
       </button>
       <div class="completion hidden text-center p-12" id="quiz-complete">
         <h2 class="text-3xl mb-4 font-bold bg-gradient-to-r from-gold to-accent bg-clip-text text-transparent"><i class="fa-solid fa-star mr-2"></i>Quiz Complete!</h2>
         <p class="text-text-muted mb-2" id="quiz-result-text"></p>
         <div class="score-display text-5xl font-bold text-gold my-4" id="quiz-score-display"></div>
-        <button class="match-btn px-5 py-2 border border-accent bg-accent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-[#c03050] mt-4" id="quiz-restart">
+        <button class="match-btn px-5 py-2 border border-accent bg-accent text-white rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent-hover mt-4" id="quiz-restart">
           <i class="fa-solid fa-rotate mr-1"></i> Play Again
         </button>
       </div>
@@ -200,7 +227,7 @@ tailwind.config = {
   </section>
 </main>
 
-<div class="toast fixed bottom-8 left-1/2 -translate-x-1/2 translate-y-[100px] bg-surface border border-accent2 px-6 py-3 rounded-2xl text-sm transition-transform duration-300 z-[100] pointer-events-none" id="toast"></div>
+<div class="toast fixed bottom-8 left-1/2 -translate-x-1/2 translate-y-[100px] bg-surface border border-accent2 px-6 py-3 rounded-2xl text-sm text-text-main transition-transform duration-300 z-[100] pointer-events-none" id="toast"></div>
 
 <script type="module" src="js/app.js"></script>
 </body>

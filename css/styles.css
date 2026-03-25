@@ -1,3 +1,57 @@
+/* ==================== THEME VARIABLES ==================== */
+:root,
+[data-theme="dark"] {
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-card: #1e3a5f;
+  --color-card-end: #2563eb;
+  --color-back-start: #1e3a5f;
+  --color-accent: #ef4444;
+  --color-accent-hover: #dc2626;
+  --color-accent2: #7c3aed;
+  --color-text-main: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-success: #22c55e;
+  --color-fail: #ef4444;
+  --color-gold: #fbbf24;
+  --color-shadow: rgba(0,0,0,0.4);
+  --color-shadow-heavy: rgba(0,0,0,0.5);
+  --color-white-overlay: rgba(255,255,255,0.08);
+  --color-accent-overlay: rgba(239,68,68,0.25);
+  --color-accent-bg: rgba(239,68,68,0.08);
+  --color-success-bg: rgba(34,197,94,0.2);
+  --color-success-bg-light: rgba(34,197,94,0.15);
+  --color-fail-bg: rgba(239,68,68,0.15);
+  --color-gold-bg: rgba(251,191,36,0.25);
+  --color-gold-hover-bg: rgba(251,191,36,0.12);
+}
+
+[data-theme="light"] {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-card: #e2e8f0;
+  --color-card-end: #3b82f6;
+  --color-back-start: #93c5fd;
+  --color-accent: #dc2626;
+  --color-accent-hover: #b91c1c;
+  --color-accent2: #7c3aed;
+  --color-text-main: #0f172a;
+  --color-text-muted: #475569;
+  --color-success: #16a34a;
+  --color-fail: #dc2626;
+  --color-gold: #b45309;
+  --color-shadow: rgba(0,0,0,0.06);
+  --color-shadow-heavy: rgba(0,0,0,0.1);
+  --color-white-overlay: rgba(0,0,0,0.04);
+  --color-accent-overlay: rgba(220,38,38,0.15);
+  --color-accent-bg: rgba(220,38,38,0.04);
+  --color-success-bg: rgba(22,163,74,0.12);
+  --color-success-bg-light: rgba(22,163,74,0.08);
+  --color-fail-bg: rgba(220,38,38,0.1);
+  --color-gold-bg: rgba(180,83,9,0.15);
+  --color-gold-hover-bg: rgba(180,83,9,0.08);
+}
+
 /* ==================== RESET ==================== */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -23,31 +77,39 @@
   backface-visibility: hidden;
 }
 
+.flashcard-front {
+  background: linear-gradient(to bottom right, var(--color-card), var(--color-card-end));
+  border: 2px solid var(--color-white-overlay);
+  color: #fff;
+}
+
 .flashcard-back {
   transform: rotateY(180deg);
+  background: linear-gradient(to bottom right, var(--color-back-start), var(--color-accent2));
+  border: 2px solid var(--color-accent-overlay);
 }
 
 /* ==================== NAV ACTIVE STATE ==================== */
 .nav-btn.active {
-  background-color: #e94560 !important;
-  border-color: #e94560 !important;
+  background-color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
   font-weight: 700;
 }
 
 /* ==================== FILTER BUTTONS (dynamic via JS) ==================== */
 .filter-btn {
   padding: 0.35rem 0.9rem;
-  border: 1px solid #0f3460;
-  background: #16213e;
-  color: #aaaaaa;
+  border: 1px solid var(--color-card);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
   border-radius: 1rem;
   cursor: pointer;
   font-size: 0.8rem;
   transition: all 0.2s;
 }
 
-.filter-btn:hover { border-color: #533483; color: #eeeeee; }
-.filter-btn.active { background: #533483; border-color: #533483; color: #fff; }
+.filter-btn:hover { border-color: var(--color-accent2); color: var(--color-text-main); }
+.filter-btn.active { background: var(--color-accent2); border-color: var(--color-accent2); color: #fff; }
 
 /* ==================== MATCH CARDS (dynamic via JS) ==================== */
 .match-card {
@@ -63,28 +125,30 @@
   border: 2px solid transparent;
   font-size: 1rem;
   user-select: none;
+  color: var(--color-text-main);
 }
 
 .match-card.kanji-card {
-  background: #0f3460;
+  background: var(--color-card);
   font-size: 2rem;
 }
 
 .match-card.reading-card {
-  background: #533483;
+  background: var(--color-accent2);
   font-size: 0.85rem;
   line-height: 1.3;
+  color: #fff;
 }
 
 .match-card:hover:not(.matched):not(.disabled) {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 20px var(--color-shadow);
 }
 
-.match-card.selected { border-color: #fdcb6e; box-shadow: 0 0 15px rgba(253,203,110,0.3); }
+.match-card.selected { border-color: var(--color-gold); box-shadow: 0 0 15px var(--color-gold-bg); }
 .match-card.matched { opacity: 0.4; cursor: default; transform: scale(0.95); }
-.match-card.correct-flash { border-color: #00b894; background: rgba(0,184,148,0.2) !important; }
-.match-card.wrong-flash { border-color: #e17055; animation: shake 0.4s; }
+.match-card.correct-flash { border-color: var(--color-success); background: var(--color-success-bg) !important; }
+.match-card.wrong-flash { border-color: var(--color-fail); animation: shake 0.4s; }
 
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
@@ -95,10 +159,10 @@
 /* ==================== QUIZ OPTION STATES (dynamic via JS) ==================== */
 .quiz-option {
   padding: 1.2rem 1rem;
-  background: #16213e;
-  border: 2px solid #0f3460;
+  background: var(--color-surface);
+  border: 2px solid var(--color-card);
   border-radius: 0.8rem;
-  color: #eeeeee;
+  color: var(--color-text-main);
   cursor: pointer;
   font-size: 1.1rem;
   text-align: center;
@@ -107,22 +171,33 @@
 }
 
 .quiz-option:hover:not(.answered) {
-  border-color: #533483;
+  border-color: var(--color-accent2);
   transform: translateY(-2px);
 }
 
-.quiz-option.correct { border-color: #00b894; background: rgba(0,184,148,0.15); }
-.quiz-option.wrong { border-color: #e17055; background: rgba(225,112,85,0.15); }
+.quiz-option.correct { border-color: var(--color-success); background: var(--color-success-bg-light); }
+.quiz-option.wrong { border-color: var(--color-fail); background: var(--color-fail-bg); }
 .quiz-option.answered { cursor: default; }
 
 /* ==================== QUIZ DIRECTION ACTIVE ==================== */
-.quiz-dir-btn.active { background: #533483 !important; border-color: #533483 !important; color: #fff !important; }
+.quiz-dir-btn.active { background: var(--color-accent2) !important; border-color: var(--color-accent2) !important; color: #fff !important; }
 
-/* ==================== QUIZ PROMPT VARIANT ==================== */
+/* ==================== QUIZ PROMPT ==================== */
+.quiz-prompt {
+  font-size: 5rem;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, var(--color-card), var(--color-card-end));
+  border-radius: 1.2rem;
+  box-shadow: 0 10px 40px var(--color-shadow-heavy);
+  min-width: 250px;
+  text-align: center;
+  color: #fff;
+}
+
 .quiz-prompt.show-meaning {
-  font-size: 1.3rem !important;
+  font-size: 1.3rem;
   line-height: 1.6;
-  padding: 2rem 3rem !important;
+  padding: 2rem 3rem;
 }
 
 /* ==================== QUIZ NEXT VISIBLE ==================== */
@@ -133,8 +208,8 @@
 
 /* ==================== DROP ZONE DRAG STATE ==================== */
 .drop-zone.drag-over {
-  border-color: #e94560 !important;
-  background: rgba(233,69,96,0.05) !important;
+  border-color: var(--color-accent) !important;
+  background: var(--color-accent-bg) !important;
 }
 
 /* ==================== GROUP ITEMS (dynamic via JS) ==================== */
@@ -143,8 +218,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.6rem 0.8rem;
-  background: #1a1a2e;
-  border: 1px solid #0f3460;
+  background: var(--color-bg);
+  border: 1px solid var(--color-card);
   border-radius: 0.5rem;
   margin-bottom: 0.4rem;
 }
@@ -157,18 +232,18 @@
 
 .group-item-name {
   font-size: 0.9rem;
-  color: #eeeeee;
+  color: var(--color-text-main);
 }
 
 .group-item-count {
   font-size: 0.75rem;
-  color: #aaaaaa;
+  color: var(--color-text-muted);
 }
 
 .group-remove-btn {
   background: transparent;
-  border: 1px solid #e17055;
-  color: #e17055;
+  border: 1px solid var(--color-fail);
+  color: var(--color-fail);
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -182,12 +257,47 @@
 }
 
 .group-remove-btn:hover {
-  background: #e17055;
+  background: var(--color-fail);
   color: #fff;
 }
 
 /* ==================== TOAST SHOW ==================== */
 .toast.show { transform: translateX(-50%) translateY(0) !important; }
+
+/* ==================== THEME TOGGLE ==================== */
+.theme-toggle {
+  display: flex;
+  gap: 0.25rem;
+  background: var(--color-white-overlay);
+  border-radius: 1.5rem;
+  padding: 0.2rem;
+}
+
+.theme-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s;
+}
+
+.theme-btn:hover {
+  color: var(--color-text-main);
+  background: var(--color-white-overlay);
+}
+
+.theme-btn.active {
+  background: var(--color-accent2);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
 
 /* ==================== UTILITY ==================== */
 .hidden { display: none !important; }

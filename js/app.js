@@ -3,6 +3,10 @@ import { initFlashcards, setupFlashcards } from './flashcard.js';
 import { initMatch, setupMatch } from './matching.js';
 import { initQuiz, setupQuiz } from './quiz.js';
 import { getAllCards, getGroupNames, setupDataManager } from './datamanager.js';
+import { initTheme } from './theme.js';
+
+// Setup theme
+initTheme();
 
 // Setup all game modules
 setupFlashcards();
