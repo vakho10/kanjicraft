@@ -211,7 +211,7 @@ export function setupDataManager(onDataChanged) {
           <span class="group-item-name">${escapeHtml(name)}</span>
           <span class="group-item-count">${count} cards</span>
         </div>
-        <button class="group-remove-btn" title="Remove group">&#10005;</button>
+        <button class="group-remove-btn" title="Remove group"><i class="fa-solid fa-xmark"></i></button>
       `;
       div.querySelector('.group-remove-btn').addEventListener('click', (e) => {
         e.stopPropagation();
