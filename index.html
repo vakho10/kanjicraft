@@ -43,38 +43,40 @@ tailwind.config = {
 </head>
 <body class="font-['Segoe_UI',system-ui,-apple-system,sans-serif] bg-bg text-text-main min-h-screen overflow-x-hidden transition-colors duration-300">
 
-<header class="bg-surface px-8 py-5 flex justify-between items-center flex-wrap gap-4 shadow-[0_4px_20px_var(--color-shadow)]">
-  <h1 class="text-2xl font-bold text-gold">漢 KanjiCraft</h1>
-  <div class="flex items-center gap-6">
-    <div class="stats flex gap-6 text-sm">
-      <div class="flex items-center gap-1.5">
-        <span class="text-text-muted">Score:</span>
-        <span class="font-bold text-gold text-lg" id="score">0</span>
+<header class="bg-surface shadow-[0_4px_20px_var(--color-shadow)]">
+  <div class="max-w-[1200px] mx-auto px-6 py-5 flex justify-between items-center flex-wrap gap-4">
+    <h1 class="text-2xl font-bold text-gold">漢 KanjiCraft</h1>
+    <div class="flex items-center gap-6">
+      <div class="stats flex gap-6 text-sm">
+        <div class="flex items-center gap-1.5">
+          <span class="text-text-muted">Score:</span>
+          <span class="font-bold text-gold text-lg" id="score">0</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-text-muted">Streak:</span>
+          <span class="font-bold text-gold text-lg" id="streak">0</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-text-muted">Cards:</span>
+          <span class="font-bold text-gold text-lg" id="card-count">90</span>
+        </div>
       </div>
-      <div class="flex items-center gap-1.5">
-        <span class="text-text-muted">Streak:</span>
-        <span class="font-bold text-gold text-lg" id="streak">0</span>
+      <div class="theme-toggle" id="theme-toggle">
+        <button class="theme-btn" data-theme-choice="light" title="Light mode">
+          <i class="fa-solid fa-sun"></i>
+        </button>
+        <button class="theme-btn" data-theme-choice="dark" title="Dark mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="theme-btn" data-theme-choice="system" title="System preference">
+          <i class="fa-solid fa-display"></i>
+        </button>
       </div>
-      <div class="flex items-center gap-1.5">
-        <span class="text-text-muted">Cards:</span>
-        <span class="font-bold text-gold text-lg" id="card-count">90</span>
-      </div>
-    </div>
-    <div class="theme-toggle" id="theme-toggle">
-      <button class="theme-btn" data-theme-choice="light" title="Light mode">
-        <i class="fa-solid fa-sun"></i>
-      </button>
-      <button class="theme-btn" data-theme-choice="dark" title="Dark mode">
-        <i class="fa-solid fa-moon"></i>
-      </button>
-      <button class="theme-btn" data-theme-choice="system" title="System preference">
-        <i class="fa-solid fa-display"></i>
-      </button>
     </div>
   </div>
 </header>
 
-<nav class="flex justify-center gap-2 px-4 pt-4 pb-2 flex-wrap">
+<nav class="max-w-[1200px] mx-auto flex justify-center gap-2 px-6 pt-4 pb-2 flex-wrap">
   <button class="nav-btn px-5 py-2 border-2 border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-300 hover:bg-accent2 hover:-translate-y-0.5 active" data-mode="flashcard">
     <i class="fa-solid fa-clone mr-1"></i> Flashcards
   </button>
@@ -89,7 +91,7 @@ tailwind.config = {
   </button>
 </nav>
 
-<div class="filter-bar flex justify-center gap-1.5 px-4 py-2 flex-wrap" id="filter-bar"></div>
+<div class="filter-bar max-w-[1200px] mx-auto flex justify-center gap-1.5 px-6 py-2 flex-wrap" id="filter-bar"></div>
 
 <!-- DATA MANAGER PANEL -->
 <div id="data-manager" class="data-manager hidden max-w-xl mx-auto p-6 bg-surface rounded-2xl border border-card mt-2">
