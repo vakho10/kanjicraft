@@ -1,0 +1,21 @@
+{
+  "name": "kanjicraft",
+  "version": "1.0.0",
+  "description": "Interactive kanji learning card game. Import your own kanji data via drag & drop, or use the built-in example set. Built with plain HTML5, CSS3, and ES modules — no build step, no dependencies.",
+  "main": "index.js",
+  "scripts": {
+    "serve": "npx serve ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vakho10/kanjicraft.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vakho10/kanjicraft/issues"
+  },
+  "homepage": "https://github.com/vakho10/kanjicraft#readme"
+}
