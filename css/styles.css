@@ -4,8 +4,7 @@
   --color-bg: #0f172a;
   --color-surface: #1e293b;
   --color-card: #1e3a5f;
-  --color-card-end: #2563eb;
-  --color-back-start: #1e3a5f;
+  --color-card-face: #1e3a5f;
   --color-accent: #ef4444;
   --color-accent-hover: #dc2626;
   --color-accent2: #7c3aed;
@@ -29,9 +28,8 @@
 [data-theme="light"] {
   --color-bg: #f8fafc;
   --color-surface: #ffffff;
-  --color-card: #e2e8f0;
-  --color-card-end: #3b82f6;
-  --color-back-start: #93c5fd;
+  --color-card: #cbd5e1;
+  --color-card-face: #3b5998;
   --color-accent: #dc2626;
   --color-accent-hover: #b91c1c;
   --color-accent2: #7c3aed;
@@ -78,14 +76,14 @@
 }
 
 .flashcard-front {
-  background: linear-gradient(to bottom right, var(--color-card), var(--color-card-end));
+  background: var(--color-card-face);
   border: 2px solid var(--color-white-overlay);
   color: #fff;
 }
 
 .flashcard-back {
   transform: rotateY(180deg);
-  background: linear-gradient(to bottom right, var(--color-back-start), var(--color-accent2));
+  background: var(--color-accent2);
   border: 2px solid var(--color-accent-overlay);
 }
 
@@ -129,8 +127,9 @@
 }
 
 .match-card.kanji-card {
-  background: var(--color-card);
+  background: var(--color-card-face);
   font-size: 2rem;
+  color: #fff;
 }
 
 .match-card.reading-card {
@@ -186,7 +185,7 @@
 .quiz-prompt {
   font-size: 5rem;
   padding: 2rem;
-  background: linear-gradient(to bottom right, var(--color-card), var(--color-card-end));
+  background: var(--color-card-face);
   border-radius: 1.2rem;
   box-shadow: 0 10px 40px var(--color-shadow-heavy);
   min-width: 250px;

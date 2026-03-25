@@ -15,8 +15,6 @@ tailwind.config = {
         bg: 'var(--color-bg)',
         surface: 'var(--color-surface)',
         card: 'var(--color-card)',
-        'card-end': 'var(--color-card-end)',
-        'back-start': 'var(--color-back-start)',
         accent: 'var(--color-accent)',
         'accent-hover': 'var(--color-accent-hover)',
         accent2: 'var(--color-accent2)',
@@ -45,8 +43,8 @@ tailwind.config = {
 </head>
 <body class="font-['Segoe_UI',system-ui,-apple-system,sans-serif] bg-bg text-text-main min-h-screen overflow-x-hidden transition-colors duration-300">
 
-<header class="bg-gradient-to-br from-surface to-accent2 px-8 py-5 flex justify-between items-center flex-wrap gap-4 shadow-[0_4px_20px_var(--color-shadow)]">
-  <h1 class="text-2xl font-bold bg-gradient-to-r from-gold to-accent bg-clip-text text-transparent">漢 KanjiCraft</h1>
+<header class="bg-surface px-8 py-5 flex justify-between items-center flex-wrap gap-4 shadow-[0_4px_20px_var(--color-shadow)]">
+  <h1 class="text-2xl font-bold text-gold">漢 KanjiCraft</h1>
   <div class="flex items-center gap-6">
     <div class="stats flex gap-6 text-sm">
       <div class="flex items-center gap-1.5">
@@ -182,7 +180,7 @@ tailwind.config = {
         <span><i class="fa-solid fa-puzzle-piece mr-1"></i>Pairs found: <strong id="match-found">0</strong> / <strong id="match-total">0</strong></span>
         <span><i class="fa-solid fa-bullseye mr-1"></i>Attempts: <strong id="match-attempts">0</strong></span>
       </div>
-      <div class="progress-bar w-full max-w-xl h-1.5 bg-surface rounded-sm overflow-hidden"><div class="progress-fill h-full bg-gradient-to-r from-accent to-gold rounded-sm transition-all duration-400" id="match-progress" style="width:0"></div></div>
+      <div class="progress-bar w-full max-w-xl h-1.5 bg-surface rounded-sm overflow-hidden"><div class="progress-fill h-full bg-accent rounded-sm transition-all duration-400" id="match-progress" style="width:0"></div></div>
       <div class="match-grid grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-3 w-full max-w-[900px]" id="match-grid"></div>
       <div class="flex gap-3 flex-wrap justify-center">
         <button class="match-btn px-5 py-2 border border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent2" id="match-size-6">6 pairs</button>
@@ -193,7 +191,7 @@ tailwind.config = {
         </button>
       </div>
       <div class="completion hidden text-center p-12" id="match-complete">
-        <h2 class="text-3xl mb-4 font-bold bg-gradient-to-r from-gold to-accent bg-clip-text text-transparent"><i class="fa-solid fa-trophy mr-2"></i>All Matched!</h2>
+        <h2 class="text-3xl mb-4 font-bold text-gold"><i class="fa-solid fa-trophy mr-2"></i>All Matched!</h2>
         <p class="text-text-muted mb-2">You found all pairs</p>
         <div class="score-display text-5xl font-bold text-gold my-4" id="match-score-display"></div>
       </div>
@@ -209,14 +207,14 @@ tailwind.config = {
         <button class="quiz-dir-btn px-4 py-1.5 border border-card bg-surface text-text-muted rounded-full cursor-pointer text-xs transition-all duration-200" data-dir="kanji-to-reading">Kanji <i class="fa-solid fa-arrow-right mx-0.5"></i> Reading</button>
         <button class="quiz-dir-btn px-4 py-1.5 border border-card bg-surface text-text-muted rounded-full cursor-pointer text-xs transition-all duration-200" data-dir="reading-to-kanji">Reading <i class="fa-solid fa-arrow-right mx-0.5"></i> Kanji</button>
       </div>
-      <div class="progress-bar w-full max-w-xl h-1.5 bg-surface rounded-sm overflow-hidden"><div class="progress-fill h-full bg-gradient-to-r from-accent to-gold rounded-sm transition-all duration-400" id="quiz-progress" style="width:0"></div></div>
+      <div class="progress-bar w-full max-w-xl h-1.5 bg-surface rounded-sm overflow-hidden"><div class="progress-fill h-full bg-accent rounded-sm transition-all duration-400" id="quiz-progress" style="width:0"></div></div>
       <div class="quiz-prompt" id="quiz-prompt"></div>
       <div class="quiz-options grid grid-cols-2 gap-3 w-full max-w-xl" id="quiz-options"></div>
       <button class="quiz-next hidden px-8 py-3 bg-accent border-none text-white rounded-full cursor-pointer text-base transition-all duration-200 hover:bg-accent-hover hover:-translate-y-0.5" id="quiz-next">
         <i class="fa-solid fa-forward mr-1"></i> Next
       </button>
       <div class="completion hidden text-center p-12" id="quiz-complete">
-        <h2 class="text-3xl mb-4 font-bold bg-gradient-to-r from-gold to-accent bg-clip-text text-transparent"><i class="fa-solid fa-star mr-2"></i>Quiz Complete!</h2>
+        <h2 class="text-3xl mb-4 font-bold text-gold"><i class="fa-solid fa-star mr-2"></i>Quiz Complete!</h2>
         <p class="text-text-muted mb-2" id="quiz-result-text"></p>
         <div class="score-display text-5xl font-bold text-gold my-4" id="quiz-score-display"></div>
         <button class="match-btn px-5 py-2 border border-accent bg-accent text-white rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent-hover mt-4" id="quiz-restart">
