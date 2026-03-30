@@ -12,6 +12,15 @@ export function initFlashcards() {
 
 function renderFlashcard() {
   if (fcDeck.length === 0) { initFlashcards(); return; }
+  const fc = document.getElementById('flashcard');
+  // Instantly reset flip (no animation) before showing new card
+  if (fc.classList.contains('flipped')) {
+    fc.style.transition = 'none';
+    fc.classList.remove('flipped');
+    // Force reflow so the instant reset applies before re-enabling transition
+    void fc.offsetHeight;
+    fc.style.transition = '';
+  }
   const card = fcDeck[fcIndex];
   document.getElementById('fc-kanji').textContent = card.k;
   document.getElementById('fc-reading').textContent = card.r;
@@ -19,7 +28,6 @@ function renderFlashcard() {
   document.getElementById('fc-kanji-back').textContent = card.k;
   document.getElementById('fc-group').textContent = card.g.replace('漢字 ', '');
   document.getElementById('fc-counter').textContent = `${fcIndex + 1} / ${fcDeck.length}`;
-  document.getElementById('flashcard').classList.remove('flipped');
 }
 
 export function setupFlashcards() {
