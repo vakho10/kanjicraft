@@ -14,7 +14,7 @@ function resolveTheme(choice) {
 
 function applyTheme(choice) {
   const resolved = resolveTheme(choice);
-  document.documentElement.dataset.theme = resolved;
+  document.documentElement.dataset.bsTheme = resolved;
 }
 
 function updateToggleUI(choice) {

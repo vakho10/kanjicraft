@@ -1,63 +1,104 @@
-/* ==================== THEME VARIABLES ==================== */
-/* Dark: 4-color gray palette (gray-900 / gray-800 / gray-700 / gray-600) */
+/* ==================== CUSTOM THEME VARIABLES ==================== */
+/* Game-specific colors that change with Bootstrap's color mode */
 :root,
-[data-theme="dark"] {
-  --color-bg: #111827;
-  --color-surface: #1f2937;
-  --color-card: #374151;
-  --color-card-face: #1e40af;
-  --color-accent: #ef4444;
-  --color-accent-hover: #dc2626;
-  --color-accent2: #8b5cf6;
-  --color-text-main: #f9fafb;
-  --color-text-muted: #9ca3af;
-  --color-success: #34d399;
-  --color-fail: #f87171;
-  --color-gold: #fbbf24;
-  --color-shadow: rgba(0,0,0,0.5);
-  --color-shadow-heavy: rgba(0,0,0,0.6);
-  --color-white-overlay: rgba(255,255,255,0.1);
-  --color-accent-overlay: rgba(239,68,68,0.3);
-  --color-accent-bg: rgba(239,68,68,0.1);
-  --color-success-bg: rgba(52,211,153,0.2);
-  --color-success-bg-light: rgba(52,211,153,0.15);
-  --color-fail-bg: rgba(248,113,113,0.15);
-  --color-gold-bg: rgba(251,191,36,0.25);
-  --color-gold-hover-bg: rgba(251,191,36,0.12);
+[data-bs-theme="dark"] {
+  --kc-card-face: #1e40af;
+  --kc-accent: #ef4444;
+  --kc-accent-hover: #dc2626;
+  --kc-accent2: #8b5cf6;
+  --kc-gold: #fbbf24;
+  --kc-success: #34d399;
+  --kc-fail: #f87171;
+  --kc-shadow: rgba(0,0,0,0.5);
+  --kc-shadow-heavy: rgba(0,0,0,0.6);
+  --kc-white-overlay: rgba(255,255,255,0.1);
+  --kc-accent-overlay: rgba(239,68,68,0.3);
+  --kc-accent-bg: rgba(239,68,68,0.1);
+  --kc-success-bg: rgba(52,211,153,0.2);
+  --kc-success-bg-light: rgba(52,211,153,0.15);
+  --kc-fail-bg: rgba(248,113,113,0.15);
+  --kc-gold-bg: rgba(251,191,36,0.25);
+  --kc-gold-hover-bg: rgba(251,191,36,0.12);
 }
 
-/* Light: 4-color gray palette (gray-50 / white / gray-200 / blue-800) */
-[data-theme="light"] {
-  --color-bg: #f9fafb;
-  --color-surface: #ffffff;
-  --color-card: #e5e7eb;
-  --color-card-face: #1e40af;
-  --color-accent: #dc2626;
-  --color-accent-hover: #b91c1c;
-  --color-accent2: #7c3aed;
-  --color-text-main: #111827;
-  --color-text-muted: #4b5563;
-  --color-success: #059669;
-  --color-fail: #dc2626;
-  --color-gold: #d97706;
-  --color-shadow: rgba(0,0,0,0.08);
-  --color-shadow-heavy: rgba(0,0,0,0.12);
-  --color-white-overlay: rgba(0,0,0,0.06);
-  --color-accent-overlay: rgba(220,38,38,0.2);
-  --color-accent-bg: rgba(220,38,38,0.05);
-  --color-success-bg: rgba(5,150,105,0.12);
-  --color-success-bg-light: rgba(5,150,105,0.08);
-  --color-fail-bg: rgba(220,38,38,0.1);
-  --color-gold-bg: rgba(217,119,6,0.15);
-  --color-gold-hover-bg: rgba(217,119,6,0.08);
+[data-bs-theme="light"] {
+  --kc-card-face: #1e40af;
+  --kc-accent: #dc2626;
+  --kc-accent-hover: #b91c1c;
+  --kc-accent2: #7c3aed;
+  --kc-gold: #d97706;
+  --kc-success: #059669;
+  --kc-fail: #dc2626;
+  --kc-shadow: rgba(0,0,0,0.08);
+  --kc-shadow-heavy: rgba(0,0,0,0.12);
+  --kc-white-overlay: rgba(0,0,0,0.06);
+  --kc-accent-overlay: rgba(220,38,38,0.2);
+  --kc-accent-bg: rgba(220,38,38,0.05);
+  --kc-success-bg: rgba(5,150,105,0.12);
+  --kc-success-bg-light: rgba(5,150,105,0.08);
+  --kc-fail-bg: rgba(220,38,38,0.1);
+  --kc-gold-bg: rgba(217,119,6,0.15);
+  --kc-gold-hover-bg: rgba(217,119,6,0.08);
 }
 
-/* ==================== RESET ==================== */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+/* ==================== SMOOTH THEME TRANSITION ==================== */
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ==================== CUSTOM UTILITY CLASSES ==================== */
+.text-gold { color: var(--kc-gold) !important; }
+
+/* ==================== CUSTOM BUTTON STYLES ==================== */
+.btn-outline-purple {
+  --bs-btn-color: var(--kc-accent2);
+  --bs-btn-border-color: var(--kc-accent2);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--kc-accent2);
+  --bs-btn-hover-border-color: var(--kc-accent2);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--kc-accent2);
+  --bs-btn-active-border-color: var(--kc-accent2);
+}
+
+.btn-outline-gold {
+  --bs-btn-color: var(--kc-gold);
+  --bs-btn-border-color: var(--kc-gold);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--kc-gold);
+  --bs-btn-hover-border-color: var(--kc-gold);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--kc-gold);
+  --bs-btn-active-border-color: var(--kc-gold);
+}
+
+.btn-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--kc-accent);
+  background: transparent;
+  color: var(--kc-accent);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-circle:hover {
+  background: var(--kc-accent);
+  color: #fff;
+  transform: scale(1.1);
+}
 
 /* ==================== FLASHCARD 3D FLIP ==================== */
 .flashcard-wrapper {
+  width: 340px;
+  height: 420px;
   perspective: 1000px;
+  cursor: pointer;
 }
 
 .flashcard {
@@ -78,40 +119,71 @@
 }
 
 .flashcard-front {
-  background: var(--color-card-face);
-  border: 2px solid var(--color-white-overlay);
+  background: var(--kc-card-face);
+  border: 2px solid var(--kc-white-overlay);
   color: #fff;
 }
 
 .flashcard-back {
   transform: rotateY(180deg);
-  background: var(--color-accent2);
-  border: 2px solid var(--color-accent-overlay);
+  background: var(--kc-accent2);
+  border: 2px solid var(--kc-accent-overlay);
+}
+
+.kanji-display { font-size: 5rem; font-weight: 300; margin-bottom: 0.5rem; }
+.fc-hint { color: rgba(255,255,255,0.6); font-size: 0.875rem; margin-top: 1rem; }
+
+.group-tag {
+  font-size: 0.75rem;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.7);
+  padding: 0.125rem 0.75rem;
+  border-radius: 9999px;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.kanji-small {
+  font-size: 2.5rem;
+  opacity: 0.4;
+  position: absolute;
+  bottom: 1rem;
+  right: 1.5rem;
+  color: #fff;
 }
 
 /* ==================== NAV ACTIVE STATE ==================== */
 .nav-btn.active {
-  background-color: var(--color-accent) !important;
-  border-color: var(--color-accent) !important;
+  background-color: var(--kc-accent) !important;
+  border-color: var(--kc-accent) !important;
+  color: #fff !important;
   font-weight: 700;
 }
 
 /* ==================== FILTER BUTTONS (dynamic via JS) ==================== */
 .filter-btn {
   padding: 0.35rem 0.9rem;
-  border: 1px solid var(--color-card);
-  background: var(--color-surface);
-  color: var(--color-text-muted);
+  border: 1px solid var(--bs-border-color);
+  background: var(--bs-secondary-bg);
+  color: var(--bs-secondary-color);
   border-radius: 1rem;
   cursor: pointer;
   font-size: 0.8rem;
   transition: all 0.2s;
 }
 
-.filter-btn:hover { border-color: var(--color-accent2); color: var(--color-text-main); }
-.filter-btn.active { background: var(--color-accent2); border-color: var(--color-accent2); color: #fff; }
+.filter-btn:hover { border-color: var(--kc-accent2); color: var(--bs-body-color); }
+.filter-btn.active { background: var(--kc-accent2); border-color: var(--kc-accent2); color: #fff; }
 
 /* ==================== MATCH CARDS (dynamic via JS) ==================== */
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.75rem;
+  max-width: 900px;
+}
+
 .match-card {
   aspect-ratio: 1;
   border-radius: 0.8rem;
@@ -125,17 +197,17 @@
   border: 2px solid transparent;
   font-size: 1rem;
   user-select: none;
-  color: var(--color-text-main);
+  color: var(--bs-body-color);
 }
 
 .match-card.kanji-card {
-  background: var(--color-card-face);
+  background: var(--kc-card-face);
   font-size: 2rem;
   color: #fff;
 }
 
 .match-card.reading-card {
-  background: var(--color-accent2);
+  background: var(--kc-accent2);
   font-size: 0.85rem;
   line-height: 1.3;
   color: #fff;
@@ -143,13 +215,13 @@
 
 .match-card:hover:not(.matched):not(.disabled) {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px var(--color-shadow);
+  box-shadow: 0 6px 20px var(--kc-shadow);
 }
 
-.match-card.selected { border-color: var(--color-gold); box-shadow: 0 0 15px var(--color-gold-bg); }
+.match-card.selected { border-color: var(--kc-gold); box-shadow: 0 0 15px var(--kc-gold-bg); }
 .match-card.matched { opacity: 0.4; cursor: default; transform: scale(0.95); }
-.match-card.correct-flash { border-color: var(--color-success); background: var(--color-success-bg) !important; }
-.match-card.wrong-flash { border-color: var(--color-fail); animation: shake 0.4s; }
+.match-card.correct-flash { border-color: var(--kc-success); background: var(--kc-success-bg) !important; }
+.match-card.wrong-flash { border-color: var(--kc-fail); animation: shake 0.4s; }
 
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
@@ -157,13 +229,21 @@
   75% { transform: translateX(6px); }
 }
 
-/* ==================== QUIZ OPTION STATES (dynamic via JS) ==================== */
+/* ==================== QUIZ OPTIONS (dynamic via JS) ==================== */
+.quiz-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 576px;
+}
+
 .quiz-option {
   padding: 1.2rem 1rem;
-  background: var(--color-surface);
-  border: 2px solid var(--color-card);
+  background: var(--bs-secondary-bg);
+  border: 2px solid var(--bs-border-color);
   border-radius: 0.8rem;
-  color: var(--color-text-main);
+  color: var(--bs-body-color);
   cursor: pointer;
   font-size: 1.1rem;
   text-align: center;
@@ -172,24 +252,39 @@
 }
 
 .quiz-option:hover:not(.answered) {
-  border-color: var(--color-accent2);
+  border-color: var(--kc-accent2);
   transform: translateY(-2px);
 }
 
-.quiz-option.correct { border-color: var(--color-success); background: var(--color-success-bg-light); }
-.quiz-option.wrong { border-color: var(--color-fail); background: var(--color-fail-bg); }
+.quiz-option.correct { border-color: var(--kc-success); background: var(--kc-success-bg-light); }
+.quiz-option.wrong { border-color: var(--kc-fail); background: var(--kc-fail-bg); }
 .quiz-option.answered { cursor: default; }
 
-/* ==================== QUIZ DIRECTION ACTIVE ==================== */
-.quiz-dir-btn.active { background: var(--color-accent2) !important; border-color: var(--color-accent2) !important; color: #fff !important; }
+/* ==================== QUIZ DIRECTION BUTTONS ==================== */
+.quiz-dir-btn {
+  padding: 0.375rem 1rem;
+  border: 1px solid var(--bs-border-color);
+  background: var(--bs-secondary-bg);
+  color: var(--bs-secondary-color);
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+}
+
+.quiz-dir-btn.active {
+  background: var(--kc-accent2) !important;
+  border-color: var(--kc-accent2) !important;
+  color: #fff !important;
+}
 
 /* ==================== QUIZ PROMPT ==================== */
 .quiz-prompt {
   font-size: 5rem;
   padding: 2rem;
-  background: var(--color-card-face);
+  background: var(--kc-card-face);
   border-radius: 1.2rem;
-  box-shadow: 0 10px 40px var(--color-shadow-heavy);
+  box-shadow: 0 10px 40px var(--kc-shadow-heavy);
   min-width: 250px;
   text-align: center;
   color: #fff;
@@ -201,16 +296,25 @@
   padding: 2rem 3rem;
 }
 
-/* ==================== QUIZ NEXT VISIBLE ==================== */
+/* ==================== VISIBILITY OVERRIDES ==================== */
 .quiz-next.visible { display: block !important; }
-
-/* ==================== COMPLETION VISIBLE ==================== */
 .completion.visible { display: block !important; }
 
-/* ==================== DROP ZONE DRAG STATE ==================== */
+/* ==================== DROP ZONE ==================== */
+.drop-zone {
+  border-color: var(--bs-border-color) !important;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.drop-zone:hover {
+  border-color: var(--kc-accent) !important;
+  background: var(--kc-accent-bg);
+}
+
 .drop-zone.drag-over {
-  border-color: var(--color-accent) !important;
-  background: var(--color-accent-bg) !important;
+  border-color: var(--kc-accent) !important;
+  background: var(--kc-accent-bg) !important;
 }
 
 /* ==================== GROUP ITEMS (dynamic via JS) ==================== */
@@ -219,32 +323,20 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.6rem 0.8rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-card);
+  background: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
   border-radius: 0.5rem;
   margin-bottom: 0.4rem;
 }
 
-.group-item-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.group-item-name {
-  font-size: 0.9rem;
-  color: var(--color-text-main);
-}
-
-.group-item-count {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-}
+.group-item-info { display: flex; flex-direction: column; gap: 0.15rem; }
+.group-item-name { font-size: 0.9rem; color: var(--bs-body-color); }
+.group-item-count { font-size: 0.75rem; color: var(--bs-secondary-color); }
 
 .group-remove-btn {
   background: transparent;
-  border: 1px solid var(--color-fail);
-  color: var(--color-fail);
+  border: 1px solid var(--kc-fail);
+  color: var(--kc-fail);
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -257,19 +349,32 @@
   flex-shrink: 0;
 }
 
-.group-remove-btn:hover {
-  background: var(--color-fail);
-  color: #fff;
+.group-remove-btn:hover { background: var(--kc-fail); color: #fff; }
+
+/* ==================== TOAST ==================== */
+.toast-notification {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--bs-secondary-bg);
+  border: 1px solid var(--kc-accent2);
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  color: var(--bs-body-color);
+  transition: transform 0.3s;
+  z-index: 100;
+  pointer-events: none;
 }
 
-/* ==================== TOAST SHOW ==================== */
-.toast.show { transform: translateX(-50%) translateY(0) !important; }
+.toast-notification.show { transform: translateX(-50%) translateY(0) !important; }
 
 /* ==================== THEME TOGGLE ==================== */
 .theme-toggle {
   display: flex;
   gap: 0.25rem;
-  background: var(--color-white-overlay);
+  background: var(--kc-white-overlay);
   border-radius: 1.5rem;
   padding: 0.2rem;
 }
@@ -280,7 +385,7 @@
   border-radius: 50%;
   border: none;
   background: transparent;
-  color: var(--color-text-muted);
+  color: var(--bs-secondary-color);
   cursor: pointer;
   font-size: 0.8rem;
   display: flex;
@@ -290,12 +395,12 @@
 }
 
 .theme-btn:hover {
-  color: var(--color-text-main);
-  background: var(--color-white-overlay);
+  color: var(--bs-body-color);
+  background: var(--kc-white-overlay);
 }
 
 .theme-btn.active {
-  background: var(--color-accent2);
+  background: var(--kc-accent2);
   color: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
@@ -306,7 +411,7 @@
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 600px) {
   .flashcard-wrapper { width: 280px !important; height: 360px !important; }
-  .flashcard-front .kanji-display { font-size: 4rem !important; }
+  .kanji-display { font-size: 4rem !important; }
   .quiz-prompt { font-size: 3.5rem !important; min-width: 180px !important; }
   .quiz-options { grid-template-columns: 1fr !important; }
   .match-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)) !important; }

@@ -5,29 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Interactive kanji learning card game with flashcards, matching, and quiz modes. Import your own kanji data via drag and drop.">
 <title>KanjiCraft - Kanji Card Game</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        bg: 'var(--color-bg)',
-        surface: 'var(--color-surface)',
-        card: 'var(--color-card)',
-        accent: 'var(--color-accent)',
-        'accent-hover': 'var(--color-accent-hover)',
-        accent2: 'var(--color-accent2)',
-        'text-main': 'var(--color-text-main)',
-        'text-muted': 'var(--color-text-muted)',
-        success: 'var(--color-success)',
-        fail: 'var(--color-fail)',
-        gold: 'var(--color-gold)',
-      }
-    }
-  }
-}
-</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <!-- Prevent flash of wrong theme -->
 <script>
@@ -37,28 +16,28 @@ tailwind.config = {
   if (choice === 'system') {
     resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
-  document.documentElement.dataset.theme = resolved;
+  document.documentElement.dataset.bsTheme = resolved;
 })();
 </script>
 </head>
-<body class="font-['Segoe_UI',system-ui,-apple-system,sans-serif] bg-bg text-text-main min-h-screen overflow-x-hidden transition-colors duration-300">
+<body class="min-vh-100">
 
-<header class="bg-surface shadow-[0_4px_20px_var(--color-shadow)]">
-  <div class="max-w-[1200px] mx-auto px-6 py-5 flex justify-between items-center flex-wrap gap-4">
-    <h1 class="text-2xl font-bold text-gold">漢 KanjiCraft</h1>
-    <div class="flex items-center gap-6">
-      <div class="stats flex gap-6 text-sm">
-        <div class="flex items-center gap-1.5">
-          <span class="text-text-muted">Score:</span>
-          <span class="font-bold text-gold text-lg" id="score">0</span>
+<header class="bg-body-secondary shadow">
+  <div class="container py-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <h1 class="fs-4 fw-bold text-gold mb-0">漢 KanjiCraft</h1>
+    <div class="d-flex align-items-center gap-4">
+      <div class="stats d-flex gap-4 small">
+        <div class="d-flex align-items-center gap-1">
+          <span class="text-body-secondary">Score:</span>
+          <span class="fw-bold text-gold fs-5" id="score">0</span>
         </div>
-        <div class="flex items-center gap-1.5">
-          <span class="text-text-muted">Streak:</span>
-          <span class="font-bold text-gold text-lg" id="streak">0</span>
+        <div class="d-flex align-items-center gap-1">
+          <span class="text-body-secondary">Streak:</span>
+          <span class="fw-bold text-gold fs-5" id="streak">0</span>
         </div>
-        <div class="flex items-center gap-1.5">
-          <span class="text-text-muted">Cards:</span>
-          <span class="font-bold text-gold text-lg" id="card-count">90</span>
+        <div class="d-flex align-items-center gap-1">
+          <span class="text-body-secondary">Cards:</span>
+          <span class="fw-bold text-gold fs-5" id="card-count">90</span>
         </div>
       </div>
       <div class="theme-toggle" id="theme-toggle">
@@ -76,100 +55,100 @@ tailwind.config = {
   </div>
 </header>
 
-<nav class="max-w-[1200px] mx-auto flex justify-center gap-2 px-6 pt-4 pb-2 flex-wrap">
-  <button class="nav-btn px-5 py-2 border-2 border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-300 hover:bg-accent2 hover:-translate-y-0.5 active" data-mode="flashcard">
-    <i class="fa-solid fa-clone mr-1"></i> Flashcards
+<nav class="container d-flex justify-content-center gap-2 pt-3 pb-2 flex-wrap">
+  <button class="btn btn-outline-purple rounded-pill btn-sm nav-btn active" data-mode="flashcard">
+    <i class="fa-solid fa-clone me-1"></i> Flashcards
   </button>
-  <button class="nav-btn px-5 py-2 border-2 border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-300 hover:bg-accent2 hover:-translate-y-0.5" data-mode="match">
-    <i class="fa-solid fa-grip mr-1"></i> Matching
+  <button class="btn btn-outline-purple rounded-pill btn-sm nav-btn" data-mode="match">
+    <i class="fa-solid fa-grip me-1"></i> Matching
   </button>
-  <button class="nav-btn px-5 py-2 border-2 border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-300 hover:bg-accent2 hover:-translate-y-0.5" data-mode="quiz">
-    <i class="fa-solid fa-circle-question mr-1"></i> Quiz
+  <button class="btn btn-outline-purple rounded-pill btn-sm nav-btn" data-mode="quiz">
+    <i class="fa-solid fa-circle-question me-1"></i> Quiz
   </button>
-  <button class="nav-btn manage-btn px-5 py-2 border-2 !border-gold bg-transparent !text-gold rounded-full cursor-pointer text-sm transition-all duration-300 hover:!bg-[var(--color-gold-hover-bg)] hover:-translate-y-0.5" id="manage-data-btn">
-    <i class="fa-solid fa-database mr-1"></i> Manage Data
+  <button class="btn btn-outline-gold rounded-pill btn-sm" id="manage-data-btn">
+    <i class="fa-solid fa-database me-1"></i> Manage Data
   </button>
 </nav>
 
-<div class="filter-bar max-w-[1200px] mx-auto flex justify-center gap-1.5 px-6 py-2 flex-wrap" id="filter-bar"></div>
+<div class="filter-bar container d-flex justify-content-center gap-1 py-2 flex-wrap" id="filter-bar"></div>
 
 <!-- DATA MANAGER PANEL -->
-<div id="data-manager" class="data-manager hidden max-w-xl mx-auto p-6 bg-surface rounded-2xl border border-card mt-2">
-  <div class="mb-4">
-    <h2 class="text-lg font-semibold text-gold mb-4"><i class="fa-solid fa-folder-open mr-2"></i>Manage Kanji Data</h2>
+<div id="data-manager" class="hidden mx-auto p-4 bg-body-secondary rounded-4 border mt-2" style="max-width: 576px">
+  <div class="mb-3">
+    <h2 class="fs-5 fw-semibold text-gold mb-3"><i class="fa-solid fa-folder-open me-2"></i>Manage Kanji Data</h2>
   </div>
 
-  <div class="drop-zone border-2 border-dashed border-card rounded-xl p-8 text-center cursor-pointer transition-all duration-300 mb-4 hover:border-accent hover:bg-[var(--color-accent-bg)]" id="drop-zone">
+  <div class="drop-zone border border-2 border-dashed rounded-3 p-5 text-center mb-3" id="drop-zone">
     <div class="drop-zone-content">
-      <div class="text-4xl mb-2"><i class="fa-solid fa-file-import text-text-muted"></i></div>
-      <p class="text-text-muted text-sm my-1">Drag & drop a <strong>.json</strong> file here</p>
-      <p class="text-xs text-text-muted/60">or click to browse</p>
+      <div class="fs-2 mb-2"><i class="fa-solid fa-file-import text-body-secondary"></i></div>
+      <p class="text-body-secondary small my-1">Drag & drop a <strong>.json</strong> file here</p>
+      <p class="text-body-tertiary" style="font-size: 0.75rem">or click to browse</p>
     </div>
     <input type="file" id="file-input" accept=".json" hidden>
   </div>
 
-  <div class="dm-format-info mb-4">
+  <div class="mb-3">
     <details>
-      <summary class="cursor-pointer text-text-muted text-sm py-1 hover:text-text-main"><i class="fa-solid fa-circle-info mr-1"></i>JSON format reference</summary>
-      <pre class="bg-bg border border-card rounded-lg p-3 mt-2 overflow-x-auto text-xs leading-relaxed"><code class="text-gold">{
+      <summary class="text-body-secondary small py-1"><i class="fa-solid fa-circle-info me-1"></i>JSON format reference</summary>
+      <pre class="bg-body border rounded-3 p-3 mt-2 overflow-x-auto small lh-base"><code class="text-gold">{
   "group": "JLPT N1 - Set 1",
   "cards": [
     { "kanji": "郷", "reading": "きょう", "meaning": "village" },
     { "kanji": "故郷", "reading": "こきょう", "meaning": "hometown" }
   ]
 }</code></pre>
-      <p class="text-xs text-text-muted mt-2">Also supports flat arrays with a <code class="text-gold">"group"</code> field per card, and shorthand keys <code class="text-gold">k</code>/<code class="text-gold">r</code>/<code class="text-gold">m</code>.</p>
+      <p class="text-body-secondary mt-2" style="font-size: 0.75rem">Also supports flat arrays with a <code class="text-gold">"group"</code> field per card, and shorthand keys <code class="text-gold">k</code>/<code class="text-gold">r</code>/<code class="text-gold">m</code>.</p>
     </details>
   </div>
 
-  <div class="dm-groups mb-4">
-    <h3 class="text-sm text-text-muted mb-2"><i class="fa-solid fa-layer-group mr-1"></i>Loaded Groups</h3>
+  <div class="mb-3">
+    <h3 class="small text-body-secondary mb-2"><i class="fa-solid fa-layer-group me-1"></i>Loaded Groups</h3>
     <div id="group-list"></div>
   </div>
 
-  <div class="flex justify-end">
-    <button class="match-btn px-5 py-2 border border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent2" id="reset-defaults-btn">
-      <i class="fa-solid fa-rotate-left mr-1"></i> Reset to Defaults
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-outline-purple rounded-pill btn-sm" id="reset-defaults-btn">
+      <i class="fa-solid fa-rotate-left me-1"></i> Reset to Defaults
     </button>
   </div>
 </div>
 
-<main class="px-6 pb-12 pt-4 max-w-[1200px] mx-auto">
+<main class="container pb-5 pt-3">
   <!-- FLASHCARD MODE -->
   <section id="flashcard-mode">
-    <div class="flashcard-container flex flex-col items-center gap-6 pt-4">
-      <div class="flashcard-wrapper w-[340px] h-[420px] cursor-pointer" id="flashcard-wrapper">
+    <div class="d-flex flex-column align-items-center gap-4 pt-3">
+      <div class="flashcard-wrapper" id="flashcard-wrapper">
         <div class="flashcard" id="flashcard">
-          <div class="flashcard-face flashcard-front rounded-2xl flex flex-col items-center justify-center p-8 shadow-[0_10px_40px_var(--color-shadow-heavy)]">
-            <span class="group-tag text-xs bg-white/15 text-white/70 px-3 py-0.5 rounded-full absolute top-4 right-4" id="fc-group"></span>
-            <div class="kanji-display text-[5rem] font-light mb-2" id="fc-kanji"></div>
-            <div class="text-white/60 text-sm mt-4"><i class="fa-solid fa-hand-pointer mr-1"></i>Click to reveal</div>
+          <div class="flashcard-face flashcard-front rounded-4 d-flex flex-column align-items-center justify-content-center p-4">
+            <span class="group-tag" id="fc-group"></span>
+            <div class="kanji-display" id="fc-kanji"></div>
+            <div class="fc-hint"><i class="fa-solid fa-hand-pointer me-1"></i>Click to reveal</div>
           </div>
-          <div class="flashcard-face flashcard-back rounded-2xl flex flex-col items-center justify-center p-8 shadow-[0_10px_40px_var(--color-shadow-heavy)] gap-4">
-            <div class="reading text-3xl text-gold" id="fc-reading"></div>
-            <div class="meaning text-lg text-center leading-relaxed text-white" id="fc-meaning"></div>
-            <div class="kanji-small text-4xl opacity-40 absolute bottom-4 right-6 text-white" id="fc-kanji-back"></div>
+          <div class="flashcard-face flashcard-back rounded-4 d-flex flex-column align-items-center justify-content-center p-4 gap-3">
+            <div class="fs-3 text-gold" id="fc-reading"></div>
+            <div class="fs-5 text-center lh-base text-white" id="fc-meaning"></div>
+            <div class="kanji-small" id="fc-kanji-back"></div>
           </div>
         </div>
       </div>
-      <div class="flex gap-4 items-center">
-        <button class="fc-btn w-12 h-12 rounded-full border-2 border-accent bg-transparent text-accent text-xl cursor-pointer transition-all duration-200 flex items-center justify-center hover:bg-accent hover:text-white hover:scale-110" id="fc-prev">
+      <div class="d-flex gap-3 align-items-center">
+        <button class="btn-circle" id="fc-prev">
           <i class="fa-solid fa-arrow-left"></i>
         </button>
-        <span class="text-base text-text-muted min-w-[80px] text-center" id="fc-counter">1 / 90</span>
-        <button class="fc-btn w-12 h-12 rounded-full border-2 border-accent bg-transparent text-accent text-xl cursor-pointer transition-all duration-200 flex items-center justify-center hover:bg-accent hover:text-white hover:scale-110" id="fc-next">
+        <span class="text-body-secondary text-center" style="min-width: 80px" id="fc-counter">1 / 90</span>
+        <button class="btn-circle" id="fc-next">
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
-      <div class="flex gap-2">
-        <button class="fc-shuffle px-5 py-2 border border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent2" id="fc-shuffle">
-          <i class="fa-solid fa-shuffle mr-1"></i> Shuffle
+      <div class="d-flex gap-2 flex-wrap justify-content-center">
+        <button class="btn btn-outline-purple rounded-pill btn-sm" id="fc-shuffle">
+          <i class="fa-solid fa-shuffle me-1"></i> Shuffle
         </button>
-        <button class="fc-shuffle px-5 py-2 border border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent2" id="fc-know">
-          <i class="fa-solid fa-check mr-1"></i> I know this
+        <button class="btn btn-outline-purple rounded-pill btn-sm" id="fc-know">
+          <i class="fa-solid fa-check me-1"></i> I know this
         </button>
-        <button class="fc-shuffle px-5 py-2 border border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent2" id="fc-reset-known">
-          <i class="fa-solid fa-arrow-rotate-left mr-1"></i> Reset known
+        <button class="btn btn-outline-purple rounded-pill btn-sm" id="fc-reset-known">
+          <i class="fa-solid fa-arrow-rotate-left me-1"></i> Reset known
         </button>
       </div>
     </div>
@@ -177,58 +156,63 @@ tailwind.config = {
 
   <!-- MATCHING MODE -->
   <section id="match-mode" class="hidden">
-    <div class="match-container flex flex-col items-center gap-4">
-      <div class="match-info flex gap-8 text-sm text-text-muted">
-        <span><i class="fa-solid fa-puzzle-piece mr-1"></i>Pairs found: <strong id="match-found">0</strong> / <strong id="match-total">0</strong></span>
-        <span><i class="fa-solid fa-bullseye mr-1"></i>Attempts: <strong id="match-attempts">0</strong></span>
+    <div class="d-flex flex-column align-items-center gap-3">
+      <div class="d-flex gap-4 small text-body-secondary">
+        <span><i class="fa-solid fa-puzzle-piece me-1"></i>Pairs found: <strong id="match-found">0</strong> / <strong id="match-total">0</strong></span>
+        <span><i class="fa-solid fa-bullseye me-1"></i>Attempts: <strong id="match-attempts">0</strong></span>
       </div>
-      <div class="progress-bar w-full max-w-xl h-1.5 bg-surface rounded-sm overflow-hidden"><div class="progress-fill h-full bg-accent rounded-sm transition-all duration-400" id="match-progress" style="width:0"></div></div>
-      <div class="match-grid grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-3 w-full max-w-[900px]" id="match-grid"></div>
-      <div class="flex gap-3 flex-wrap justify-center">
-        <button class="match-btn px-5 py-2 border border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent2" id="match-size-6">6 pairs</button>
-        <button class="match-btn px-5 py-2 border border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent2" id="match-size-8">8 pairs</button>
-        <button class="match-btn px-5 py-2 border border-accent2 bg-transparent text-text-main rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent2" id="match-size-10">10 pairs</button>
-        <button class="match-btn px-5 py-2 border border-accent bg-accent text-white rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent-hover" id="match-new">
-          <i class="fa-solid fa-plus mr-1"></i> New Game
+      <div class="progress w-100" style="max-width: 576px; height: 6px">
+        <div class="progress-bar bg-danger" id="match-progress" role="progressbar" style="width: 0"></div>
+      </div>
+      <div class="match-grid w-100" id="match-grid"></div>
+      <div class="d-flex gap-2 flex-wrap justify-content-center">
+        <button class="btn btn-outline-purple rounded-pill btn-sm" id="match-size-6">6 pairs</button>
+        <button class="btn btn-outline-purple rounded-pill btn-sm" id="match-size-8">8 pairs</button>
+        <button class="btn btn-outline-purple rounded-pill btn-sm" id="match-size-10">10 pairs</button>
+        <button class="btn btn-danger rounded-pill btn-sm" id="match-new">
+          <i class="fa-solid fa-plus me-1"></i> New Game
         </button>
       </div>
-      <div class="completion hidden text-center p-12" id="match-complete">
-        <h2 class="text-3xl mb-4 font-bold text-gold"><i class="fa-solid fa-trophy mr-2"></i>All Matched!</h2>
-        <p class="text-text-muted mb-2">You found all pairs</p>
-        <div class="score-display text-5xl font-bold text-gold my-4" id="match-score-display"></div>
+      <div class="completion hidden text-center p-5" id="match-complete">
+        <h2 class="fs-3 mb-3 fw-bold text-gold"><i class="fa-solid fa-trophy me-2"></i>All Matched!</h2>
+        <p class="text-body-secondary mb-2">You found all pairs</p>
+        <div class="display-4 fw-bold text-gold my-3" id="match-score-display"></div>
       </div>
     </div>
   </section>
 
   <!-- QUIZ MODE -->
   <section id="quiz-mode" class="hidden">
-    <div class="quiz-container flex flex-col items-center gap-6 pt-4">
-      <div class="quiz-direction flex gap-2 flex-wrap justify-center">
-        <button class="quiz-dir-btn px-4 py-1.5 border border-card bg-surface text-text-muted rounded-full cursor-pointer text-xs transition-all duration-200 active" data-dir="kanji-to-meaning">Kanji <i class="fa-solid fa-arrow-right mx-0.5"></i> Meaning</button>
-        <button class="quiz-dir-btn px-4 py-1.5 border border-card bg-surface text-text-muted rounded-full cursor-pointer text-xs transition-all duration-200" data-dir="meaning-to-kanji">Meaning <i class="fa-solid fa-arrow-right mx-0.5"></i> Kanji</button>
-        <button class="quiz-dir-btn px-4 py-1.5 border border-card bg-surface text-text-muted rounded-full cursor-pointer text-xs transition-all duration-200" data-dir="kanji-to-reading">Kanji <i class="fa-solid fa-arrow-right mx-0.5"></i> Reading</button>
-        <button class="quiz-dir-btn px-4 py-1.5 border border-card bg-surface text-text-muted rounded-full cursor-pointer text-xs transition-all duration-200" data-dir="reading-to-kanji">Reading <i class="fa-solid fa-arrow-right mx-0.5"></i> Kanji</button>
+    <div class="d-flex flex-column align-items-center gap-4 pt-3">
+      <div class="d-flex gap-2 flex-wrap justify-content-center">
+        <button class="quiz-dir-btn active" data-dir="kanji-to-meaning">Kanji <i class="fa-solid fa-arrow-right mx-1"></i> Meaning</button>
+        <button class="quiz-dir-btn" data-dir="meaning-to-kanji">Meaning <i class="fa-solid fa-arrow-right mx-1"></i> Kanji</button>
+        <button class="quiz-dir-btn" data-dir="kanji-to-reading">Kanji <i class="fa-solid fa-arrow-right mx-1"></i> Reading</button>
+        <button class="quiz-dir-btn" data-dir="reading-to-kanji">Reading <i class="fa-solid fa-arrow-right mx-1"></i> Kanji</button>
       </div>
-      <div class="progress-bar w-full max-w-xl h-1.5 bg-surface rounded-sm overflow-hidden"><div class="progress-fill h-full bg-accent rounded-sm transition-all duration-400" id="quiz-progress" style="width:0"></div></div>
+      <div class="progress w-100" style="max-width: 576px; height: 6px">
+        <div class="progress-bar bg-danger" id="quiz-progress" role="progressbar" style="width: 0"></div>
+      </div>
       <div class="quiz-prompt" id="quiz-prompt"></div>
-      <div class="quiz-options grid grid-cols-2 gap-3 w-full max-w-xl" id="quiz-options"></div>
-      <button class="quiz-next hidden px-8 py-3 bg-accent border-none text-white rounded-full cursor-pointer text-base transition-all duration-200 hover:bg-accent-hover hover:-translate-y-0.5" id="quiz-next">
-        <i class="fa-solid fa-forward mr-1"></i> Next
+      <div class="quiz-options" id="quiz-options"></div>
+      <button class="btn btn-danger rounded-pill px-4 py-2 hidden quiz-next" id="quiz-next">
+        <i class="fa-solid fa-forward me-1"></i> Next
       </button>
-      <div class="completion hidden text-center p-12" id="quiz-complete">
-        <h2 class="text-3xl mb-4 font-bold text-gold"><i class="fa-solid fa-star mr-2"></i>Quiz Complete!</h2>
-        <p class="text-text-muted mb-2" id="quiz-result-text"></p>
-        <div class="score-display text-5xl font-bold text-gold my-4" id="quiz-score-display"></div>
-        <button class="match-btn px-5 py-2 border border-accent bg-accent text-white rounded-full cursor-pointer text-sm transition-all duration-200 hover:bg-accent-hover mt-4" id="quiz-restart">
-          <i class="fa-solid fa-rotate mr-1"></i> Play Again
+      <div class="completion hidden text-center p-5" id="quiz-complete">
+        <h2 class="fs-3 mb-3 fw-bold text-gold"><i class="fa-solid fa-star me-2"></i>Quiz Complete!</h2>
+        <p class="text-body-secondary mb-2" id="quiz-result-text"></p>
+        <div class="display-4 fw-bold text-gold my-3" id="quiz-score-display"></div>
+        <button class="btn btn-danger rounded-pill btn-sm mt-3" id="quiz-restart">
+          <i class="fa-solid fa-rotate me-1"></i> Play Again
         </button>
       </div>
     </div>
   </section>
 </main>
 
-<div class="toast fixed bottom-8 left-1/2 -translate-x-1/2 translate-y-[100px] bg-surface border border-accent2 px-6 py-3 rounded-2xl text-sm text-text-main transition-transform duration-300 z-[100] pointer-events-none" id="toast"></div>
+<div class="toast-notification" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="js/app.js"></script>
 </body>
 </html>
